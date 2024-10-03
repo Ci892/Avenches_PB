@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Avenches_PB</title>
+    <meta name="description" content="Avenches_PB — A-Frame" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+    <script>
+      AFRAME.registerComponent('toggle-visibility', {
+      init: function () {
+        const targetEl = document.querySelector('#info-plane');
+        this.el.addEventListener('click', function () {
+          const isVisible = targetEl.getAttribute('visible');
+          targetEl.setAttribute('visible', !isVisible);
+        });
+      }
+    });
+    </script>
+    
+</head>
+<body>
+  <a-scene> 
+    <a-camera position="0.488 1.6 0.4">
+      <a-entity 
+        cursor="fuse: true; fuseTimeout: 2000"
+        position="0 0 -0.15"
+        geometry="primitive: ring; radiusInner: 0.0025; radiusOuter: 0.0050"
+        material="color: black; shader: flat">
+      </a-entity>
+      <a-entity raycaster="objects: .clickable"></a-entity>
+    </a-camera>
+
+    <a-assets>
+      <a-obj-model id="avenchesRoom" src="assets/"></a-obj-model>
+      <a-gltf-model id="wallOne" src=""></a-gltf-model>
+      <audio id="audioClick" src="assets/110429__soundbytercom__wwwsoundbytercom-selectsound.wav"></audio>
+      <a-image id="infoIcon" src="assets/InfoPng.png"></a-image>
+      <a-image id="avenchesSky" src="assets/"></a-image>
+    </a-assets>
+
+    <a-sky src="#avenchesSky" 
+        rotation="0 -130 0">
+    </a-sky>
+    
+    <a-plane id="info-plane" visible="false" 
+        position="-0.073 2.441 -2" 
+        rotation="0 0 0" 
+        width="1" 
+        height="1"
+        material="color: #FFF; src: #infoIcon">
+    </a-plane>
+
+    <a-entity id="logo" class="clickable" geometry="primitive: plane" 
+        material="src: assets/InfoPng.png; transparent: true" 
+        position="0.81238 0.29846 0.57852" 
+        scale="0.172 0.155 1" 
+        animation__click="property: scale; startEvents: raycaster-intersected; dur: 2000; to: 0.2121 0.18535 1" 
+        sound="src: assets/110429__soundbytercom__wwwsoundbytercom-selectsound.wav; on: click; refDistance: 4; rolloffFactor: 4" 
+        animation__unclick="property: scale; startEvents: raycaster-intersected-cleared; dur: 2000; to: 0.172 0.155 1" 
+        toggle-visibility="">
+    </a-entity>
+
+    <a-entity id="lighting">
+        <a-light type="ambient" color="#4f6487"></a-light>
+        <a-entity
+          light="type: spot; color: #c7c5c2; target: #statue; angle: 10; penumbra: 0.2; castShadow: true; intensity: 1.16; shadowBias: -0.03; shadowCameraFar: 500.29; shadowCameraNear: 0.35"
+          position="-0.17672 9.65902 1.81204"
+        ></a-entity>
+        <a-entity
+          light="type: spot; color: #c7c5c2; target: #statue; angle: 10; penumbra: 0.2; castShadow: true; intensity: 0.09; shadowBias: -0.03; shadowCameraFar: 500.29; shadowCameraNear: 0.35"
+          position="2.18571 -1.43496 -2.59824"
+          scale="1 -3.60243 1"
+        ></a-entity>
+        <a-entity
+          light="type: spot; color: #c7c5c2; target: #back-wall-room; angle: 10; penumbra: 0.2; castShadow: true; intensity: 1.16; shadowBias: -0.03; shadowCameraFar: 500.29; shadowCameraNear: 0.35"
+          position="-0.17672 14.26921 -0.69796"
+        ></a-entity>
+        <a-light
+          type="ambient"
+          color="#b5b5b5"
+          position="0.49692 1.89276 -9.20801"
+        ></a-light>
+      </a-entity>
+    </a-entity>
+      
+  </a-scene>
+</body>
+</html>
